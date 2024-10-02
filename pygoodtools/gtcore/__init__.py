@@ -21,6 +21,25 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module initializes the core components of the goodtools library.
+
+It imports the following classes:
+- GTObject: A base class for all objects in the goodtools library.
+- Signal: A class representing a signal for event handling.
+- Slot: A class representing a slot for event handling.
+
+The module also defines the following aliases:
+- pyGTSignal: Alias for the Signal class.
+- pyGTSlot: Alias for the Slot class.
+
+__all__:
+    List of public objects of this module, as interpreted by `from module import *`.
+
+Attributes:
+    pyGTSignal (Signal): Alias for the Signal class.
+    pyGTSlot (Slot): Alias for the Slot class.
+"""
 from .object import GTObject
 from .Signal import Signal
 from .Slot import Slot

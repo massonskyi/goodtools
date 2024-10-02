@@ -21,6 +21,36 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module defines the Command design pattern with classes for commands and an invoker.
+
+Classes:
+    Command: Base class for all commands.
+    SimpleCommand: A simple command with a name and description.
+    Invoker: Executes commands before and after performing an important task.
+
+Classes and Methods:
+    Command:
+        - execute: Method to be called when the command is executed.
+
+    SimpleCommand(Command):
+        - __init__: Constructor for SimpleCommand.
+            Parameters:
+                - name (str): The name of the command.
+                - description (str): The description of the command.
+        - execute: Method to be called when the command is executed.
+
+    Invoker:
+        - __init__: Constructor for Invoker.
+        - set_on_start: Sets the command to be executed when the invoker starts.
+            Parameters:
+                - command (Command): The command to execute.
+        - set_on_finish: Sets the command to be executed when the invoker finishes.
+            Parameters:
+                - command (Command): The command to execute.
+        - do_something_important: Performs an important task, executing start and finish commands if set.
+"""
+
 __all__ = ['Command']
 
 class Command(object):

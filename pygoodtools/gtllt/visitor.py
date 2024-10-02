@@ -21,7 +21,30 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module defines the Visitor and Element classes for implementing the Visitor design pattern
+to traverse and manipulate Abstract Syntax Tree (AST) elements.
 
+Classes:
+    Visitor: A base class for creating visitors that can traverse AST elements.
+    Element: A base class for AST elements that can be visited by a Visitor.
+
+Usage example:
+    class MyElement(Element):
+        def __init__(self, value):
+            self.value = value
+
+
+    class MyVisitor(Visitor):
+        def visit_MyElement(self, element):
+            return element.value * 2
+
+
+    element = MyElement(10)
+    visitor = MyVisitor()
+
+    print(visitor.visit(element))  # Output: 20
+"""
 __all__ = ['Visitor', 'Element']
 
 
@@ -61,22 +84,5 @@ class Element(object):
         :param __visitor: visitor to be used to visit the AST elements
         :return: None
         """
-        return visitor.visit(self)
+        return __visitor.visit(self)
 
-
-if __name__ == '__main__':
-    # Пример использования
-    class MyElement(Element):
-        def __init__(self, value):
-            self.value = value
-
-
-    class MyVisitor(Visitor):
-        def visit_MyElement(self, element):
-            return element.value * 2
-
-
-    element = MyElement(10)
-    visitor = MyVisitor()
-
-    print(visitor.visit(element))  # Output: 20

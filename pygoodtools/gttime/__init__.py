@@ -22,9 +22,28 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 # COPYRIGHT (c) 2024 Massonskyi
+
+"""
+This module initializes the GTTimer class from the Timer module.
+
+Classes:
+    GTTimer: Alias for the Timer class from the Timer module.
+
+Usage:
+
+    timer = GTTimer()
+    timer.start()
+    # Do some operations
+    timer.stop()
+    elapsed_time = timer.elapsed()
+
+Note:
+    This module is part of the pygoodtools package.
+
+Copyright (c) 2024 Massonskyi
+"""
+
 from .Timer import Timer
-
-
 
 __all__ = ['GTTimer']
 

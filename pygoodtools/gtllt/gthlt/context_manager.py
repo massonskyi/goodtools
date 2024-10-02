@@ -30,6 +30,17 @@ import functools
 
 
 def contextmanager(func):
+    """
+    A decorator that converts a generator function into a context manager.
+    This decorator uses `contextlib.contextmanager` to transform a generator 
+    function into a context manager, allowing the function to be used with 
+    the `with` statement.
+    Args:
+        func (callable): The generator function to be converted into a context manager.
+    Returns:
+        callable: A function that returns a context manager when called.
+    """
+    
     @functools.wraps(func)
     def wrapper_contextmanager(*args, **kwargs):
         return contextlib.contextmanager(func)(*args, **kwargs)

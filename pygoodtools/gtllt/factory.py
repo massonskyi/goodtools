@@ -23,7 +23,29 @@
 # POSSIBILITY OF SUCH DAMAGE.
 __all__ = ['CallbackFactory']
 
+"""
+Factory class to create objects.
 
+This module provides a `CallbackFactory` class that allows for the registration
+and creation of objects based on events. It maintains a registry of event names
+and their corresponding callback functions.
+
+Classes:
+    CallbackFactory: A factory class to register events and create objects based on those events.
+
+Usage Example:
+    factory = CallbackFactory()
+    factory.register('event_name', callback_function)
+    obj = factory.create('event_name', *args, **kwargs)
+
+CallbackFactory Methods:
+    __init__(): Initializes the factory with an empty registry.
+    register(event: str, callback: callable): Registers a new event with its corresponding callback function.
+    create(event: str, *args, **kwargs): Creates an object based on the registered event and provided arguments.
+
+Raises:
+    ValueError: If the event is not registered in the factory.
+"""
 class CallbackFactory(object):
     """
     Factory class to create objects

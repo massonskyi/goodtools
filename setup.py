@@ -1,8 +1,12 @@
+"""
+Модуль для настройки пакета 'pygoodtools' с использованием setuptools.
+"""
+
 from setuptools import setup, find_packages
 
 setup(
-    name='goodtools',
-    version='0.1.0',
+    name='pygoodtools',
+    version='0.2.1',
     packages=find_packages(),
     install_requires=[
         # Укажите зависимости вашего проекта здесь
@@ -34,7 +38,7 @@ setup(
                     classifiers (list): A list of classifiers that provide some additional metadata about the package.
                     python_requires (str): The Python version requirement for the package.
                 """,
-    long_description=open('README.md').read(),
+    long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/massonskyi/goodtools',
     classifiers=[
@@ -44,3 +48,6 @@ setup(
     ],
     python_requires='>=3.11',
 )
+
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()

@@ -28,6 +28,17 @@ __version__ = '0.1.0'
 __description__ = 'Кэширует результаты вызова функции для повышения производительности.'
 
 def memoize(func):
+    """
+    A decorator to cache the results of function calls with specific arguments.
+    This decorator stores the results of function calls in a cache dictionary,
+    using the function arguments as keys. If the function is called again with
+    the same arguments, the cached result is returned instead of recomputing
+    the result.
+    Args:
+        func (callable): The function to be memoized.
+    Returns:
+        callable: A wrapper function that implements memoization.
+    """
     cache = {}
 
     @functools.wraps(func)

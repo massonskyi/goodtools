@@ -21,6 +21,37 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+"""
+This module provides a collection of utility decorators and functions for various purposes such as caching, 
+method existence checking, context management, logging, memoization, timing, singleton pattern, type checking, 
+and retry mechanisms.
+
+Available Decorators and Functions:
+- pyGTCache: LRU (Least Recently Used) cache decorator.
+- pyGTEnsureMethodExists: Decorator to ensure a method exists in a class.
+- pyGTContextManager: Context manager decorator.
+- pyGTLogCalls: Decorator to log function calls.
+- pyGTMemoize: Memoization decorator to cache function results.
+- pyGTTimeit: Decorator to measure execution time of functions.
+- pyGTSingleton: Singleton pattern decorator.
+- pyGTIsType: Type checking decorator.
+- pyGTRetry: Retry mechanism decorator.
+
+Modules Imported:
+- lru_cache from .cache
+- ensure_method_exists from .class_method_checked
+- contextmanager from .context_manager
+- log_calls from .log_calls
+- memoize from .memoization
+- timeit from .timeit
+- singleton from .singleton
+- is_type from .type_checked
+- retry from .retry
+
+__all__:
+- List of public objects of this module, as interpreted by import *.
+"""
 from .cache import lru_cache
 from .class_method_checked import ensure_method_exists
 from .context_manager import contextmanager

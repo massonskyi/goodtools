@@ -47,7 +47,7 @@ __all__ = [
     
 ]
 
-void = Void
+void = Void()
 ptr = Pointer
 const = Const
 u8 = UInt8
@@ -60,8 +60,8 @@ i32 = Int32
 i64 = Int64
 char = Char
 string = String
-NULL = NULL
-nullptr = nullptr
+NULL = NULL()
+nullptr = nullptr()
 boolean = Bool
 f2 = Float2
 f4 = Float4

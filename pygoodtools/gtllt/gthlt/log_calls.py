@@ -29,6 +29,22 @@ __description__ = 'Логирует вызовы функции, включая 
 
 
 def log_calls(func):
+    """
+    A decorator that logs the function calls, including the arguments and the return value.
+    Args:
+        func (callable): The function to be decorated.
+    Returns:
+        callable: The wrapped function that logs its calls.
+    Example:
+        @log_calls
+        def add(a, b):
+            return a + b
+        add(2, 3)
+        # Output:
+        # Calling add with args=(2, 3) kwargs={}
+        # add returned 5
+    """
+    
     @functools.wraps(func)
     def wrapper_log_calls(*args, **kwargs):
         print(f"Calling {func.__name__} with args={args} kwargs={kwargs}")

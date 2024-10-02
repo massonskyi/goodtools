@@ -30,6 +30,23 @@ __description__ = 'Измеряет время выполнения функци
 
 
 def timeit(func):
+    """
+    A decorator that measures the execution time of a function.
+    This decorator wraps a function and prints the time it took to execute the function.
+    It also prints the function's name, its positional arguments, and its keyword arguments.
+    Args:
+        func (callable): The function to be wrapped by the decorator.
+    Returns:
+        callable: The wrapped function that includes execution time measurement.
+    Example:
+        @timeit
+        def example_function(param1, param2):
+            # Function implementation
+            pass
+        example_function(1, 2)
+        # Output: Function 'example_function' with arguments (1, 2) and keywords arguments {} executed in X.XXXX seconds
+    """
+    
     @functools.wraps(func)
     def wrapper_timeit(*args, **kwargs):
         start_time = time.time()  # Record the start time

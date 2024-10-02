@@ -21,6 +21,30 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+Methods:
+    __init__() -> Optional[None]:
+        Initialize the callback class.
+    connect(func: Optional[callable] = None) -> Optional[None]:
+        Connect a callback to the event signals.
+            func: The callback function to connect.
+        Raises:
+            ValueError: If the callback is None or already connected.
+    disconnect(func: Optional[callable] = None) -> Optional[None]:
+        Disconnect a callback from the event signals.
+            func: The callback function to disconnect.
+        Raises:
+            ValueError: If the callback is None or not connected.
+    emit(*args: Optional[Any], **kwargs: Optional[Any]) -> Optional[None]:
+        Emit an event.
+            *args: Positional arguments.
+            **kwargs: Keyword arguments.
+    get() -> Optional[Any]:
+        Get the result of the slot function when called.
+            Any result or None if no result is available.
+        Raises:
+            ValueError: If the result is empty.
+"""
 from typing import Any, List, Optional, final
 
 

@@ -21,12 +21,61 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+"""
+GTObject is an abstract base class that provides a framework for objects with named signals.
+
+Attributes:
+    name (str): The name of the GTObject instance.
+    signals (dict): A dictionary mapping signal names to Signal objects.
+
+Methods:
+    __init__(name):
+        Initializes a GTObject instance with a given name.
+    
+    display_info():
+        Abstract method that must be implemented by subclasses to display information about the object.
+    
+    __str__():
+        Returns a string representation of the GTObject instance.
+    
+    connect(signal_name, callback):
+        Connects a callback function to a named signal. If the signal does not exist, it is created.
+    
+    disconnect(signal_name, callback):
+        Disconnects a callback function from a named signal.
+    
+    emit(signal_name, *args, **kwargs):
+        Emits a named signal, invoking all connected callback functions with the provided arguments.
+"""
+
 from abc import ABC, abstractmethod
 from typing import Any
 
 from . import Signal
 
 class GTObject(ABC):
+    """
+    GTObject is an abstract base class that provides a framework for objects
+    with named signals and callback connections.
+    Attributes:
+        name (str): The name of the GTObject instance.
+        signals (dict): A dictionary mapping signal names to Signal objects.
+    Methods:
+        display_info():
+            Abstract method that must be implemented by subclasses to display
+            information about the object.
+        __str__():
+            Returns a string representation of the GTObject instance.
+        connect(signal_name, callback):
+            Connects a callback function to a named signal. If the signal does
+            not exist, it is created.
+        disconnect(signal_name, callback):
+            Disconnects a callback function from a named signal.
+        emit(signal_name, *args, **kwargs):
+            Emits a named signal, invoking all connected callback functions
+            with the provided arguments.
+    """
     def __init__(self, name):
         self.name = name
         self.signals = {}

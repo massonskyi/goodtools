@@ -21,6 +21,31 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module defines a Singleton metaclass.
+
+Classes that use this metaclass will follow the singleton pattern, ensuring that only one instance of the class exists.
+
+Classes:
+    Singleton (type): Metaclass for creating singleton classes.
+
+Metaclass:
+    Singleton:
+        
+        Attributes:
+            _instances (dict): A dictionary to store the singleton instances.
+        
+        Methods:
+            __call__(cls, *args, **kwargs):
+                
+                Args:
+                    cls (type): The class being instantiated.
+                    *args: Variable length argument list.
+                    **kwargs: Arbitrary keyword arguments.
+                
+                Returns:
+                    object: The singleton instance of the class.
+"""
 __all__ = ['Singleton']
 
 

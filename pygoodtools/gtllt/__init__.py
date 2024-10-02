@@ -21,6 +21,37 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module initializes and exposes various components of the `pygoodtools` package.
+
+Modules:
+    - command: Contains the Command class.
+    - factory: Contains the CallbackFactory class.
+    - functor: Contains the F class.
+    - mediator: Contains the Mediator class.
+    - meta: Contains the Meta class.
+    - observer: Contains the Observer and Subject classes.
+    - singleton: Contains the Singleton class.
+    - smart_ptr: Contains the SmartPointer class.
+    - time_ptr: Contains the TimeitPtr class.
+    - visitor: Contains the Visitor class.
+
+Exposed Classes:
+    - pyGTCommand: Alias for Command class.
+    - pyGTCallback: Alias for CallbackFactory class.
+    - pyGTFunctor: Alias for F class.
+    - pyGTSingleton: Alias for Singleton class.
+    - pyGTSmartPointer: Alias for SmartPointer class.
+    - pyGTTimeitPtr: Alias for TimeitPtr class.
+    - pyGTVisitor: Alias for Visitor class.
+    - pyGTMediator: Alias for Mediator class.
+    - pyGTMeta: Alias for Meta class.
+    - pyGTSubject: Alias for Subject class.
+    - pyGTObserver: Alias for Observer class.
+"""
+
+
+
 from .command import Command
 from .factory import CallbackFactory
 from .functor import F

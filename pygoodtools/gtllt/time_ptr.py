@@ -21,7 +21,45 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module provides a context manager and decorator for timing code execution.
 
+Classes:
+    TimeitPtr: A context manager and decorator for measuring the execution time of code blocks and functions.
+
+Usage:
+    As a context manager:
+        with TimeitPtr() as timer:
+            # code block to time
+        print(timer)  # prints the elapsed time
+
+    As a decorator:
+        @TimeitPtr.timeit
+        def some_function():
+            # function body
+
+    The decorator will print the execution time of the decorated function.
+
+Attributes:
+    __all__: List of public objects of this module.
+
+Class TimeitPtr:
+    Methods:
+        __init__(self, t=0.0, time_func=None):
+            Initializes the TimeitPtr instance.
+        
+        __enter__(self):
+            Starts the timer when entering the context.
+        
+        __exit__(self, type, value, traceback):
+            Stops the timer when exiting the context and updates the elapsed time.
+        
+        __str__(self):
+            Returns a string representation of the elapsed time.
+        
+        timeit(func):
+            A decorator that measures and prints the execution time of the decorated function.
+"""
 import contextlib
 import functools
 import time

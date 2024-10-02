@@ -29,6 +29,25 @@ __description__ = 'Кэширует результаты функции с ог�
 
 
 def lru_cache(maxsize=128):
+    """
+    Decorator to implement a Least Recently Used (LRU) cache.
+    Args:
+        maxsize (int, optional): The maximum size of the cache. Defaults to 128.
+    Returns:
+        function: A decorator that wraps a function with LRU caching.
+    The LRU cache stores the results of function calls and reuses them when the same inputs occur again, 
+    up to a maximum number of cached items specified by `maxsize`. When the cache exceeds `maxsize`, 
+    the least recently used items are discarded to make room for new ones.
+    Example:
+        @lru_cache(maxsize=100)
+        def expensive_function(x, y):
+            # Expensive computation here
+        # The first call will compute the result
+        result1 = expensive_function(1, 2)
+        # The second call with the same arguments will return the cached result
+        result2 = expensive_function(1, 2)
+    """
+    
     def decorator_lru_cache(func):
         cache = {}
         order = []

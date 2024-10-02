@@ -98,7 +98,7 @@ Classes:
             __ge__(other):"""
 from dataclasses import dataclass
 from typing import final
-
+from abc import ABCMeta, ABC
 __all__ = [
     'Void', 
     'Pointer', 
@@ -175,7 +175,7 @@ class Void:
         """
         Check equality with another instance.
         """
-        return isinstance(other, Void)
+        return isinstance(other, Void) or isinstance(other, NULL) or isinstance(other, nullptr)
 
     def __ne__(self, other):
         """
@@ -321,12 +321,10 @@ class Void:
         """
         return False
     
-from ctypes import _Pointer
-from abc import ABC, abstractmethod
-from abc import ABCMeta
+
 @dataclass
 @final
-class Pointer(_Pointer):
+class Pointer:
     """
     A class that represents a pointer to an object.
     It can be used to reference and manipulate the object it points to.
@@ -530,272 +528,17 @@ class Pointer(_Pointer):
         Check if the pointed object is greater than or equal to another object.
         """
         return self.ptr >= other
-    
-class BaseUInt(ABC):
-    """
-    An abstract base class that represents an unsigned integer.
-    """
-
-    def __init__(self, value=0, bit_size=8):
-        self._bit_size = bit_size
-        self.value = value
-
-    @property
-    def value(self):
-        return self._value
-
-    @value.setter
-    def value(self, new_value):
-        max_value = (1 << self._bit_size) - 1
-        if not (0 <= new_value <= max_value):
-            raise ValueError(f"Value must be between 0 and {max_value} inclusive.")
-        self._value = new_value
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.value})"
-
-    def __str__(self):
-        return str(self.value)
-
-    def __int__(self):
-        return self.value
-
-    def __eq__(self, other):
-        if isinstance(other, BaseUInt):
-            return self.value == other.value
-        return self.value == other
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __add__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__((self.value + other) & ((1 << self._bit_size) - 1))
-
-    def __sub__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__((self.value - other) & ((1 << self._bit_size) - 1))
-
-    def __mul__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__((self.value * other) & ((1 << self._bit_size) - 1))
-
-    def __truediv__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        if other == 0:
-            raise ZeroDivisionError("division by zero")
-        return self.__class__(self.value // other)
-
-    def __floordiv__(self, other):
-        return self.__truediv__(other)
-
-    def __mod__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(self.value % other)
-
-    def __pow__(self, other, modulo=None):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(pow(self.value, other, modulo))
-
-    def __and__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(self.value & other)
-
-    def __or__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(self.value | other)
-
-    def __xor__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(self.value ^ other)
-
-    def __invert__(self):
-        return self.__class__(~self.value & ((1 << self._bit_size) - 1))
-
-    def __lshift__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__((self.value << other) & ((1 << self._bit_size) - 1))
-
-    def __rshift__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.__class__(self.value >> other)
-
-    def __lt__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.value < other
-
-    def __le__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.value <= other
-
-    def __gt__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.value > other
-
-    def __ge__(self, other):
-        if isinstance(other, BaseUInt):
-            other = other.value
-        return self.value >= other
-
-class UInt8(BaseUInt):
-    """
-    A class that represents an 8-bit unsigned integer.
-    """
-
-    def __init__(self, value=0):
-        super().__init__(value, bit_size=8)
-        
-    def to_bytes(self):
-        """
-        Return the value as a byte.
-        """
-        return self.value.to_bytes(1, byteorder='big')
-
-    @classmethod
-    def from_bytes(cls, byte_data):
-        """
-        Create an instance from a byte.
-        """
-        if len(byte_data) != 1:
-            raise ValueError("Byte data must be exactly 1 byte long.")
-        return cls(int.from_bytes(byte_data, byteorder='big'))
-
-    def __repr__(self):
-        """
-        Return a string representation of the instance.
-        """
-        return f"UInt8({self.value})"
-
-    def __hash__(self):
-        """
-        Return the hash of the value.
-        """
-        return hash(self.value)
-    
-class UInt16(BaseUInt):
-    """
-    A class that represents a 16-bit unsigned integer.
-    """
-
-    def __init__(self, value=0):
-        super().__init__(value, bit_size=16)
-        
-    def to_bytes(self):
-        """
-        Return the value as bytes.
-        """
-        return self.value.to_bytes(2, byteorder='big')
-
-    @classmethod
-    def from_bytes(cls, byte_data):
-        """
-        Create an instance from bytes.
-        """
-        if len(byte_data) != 2:
-            raise ValueError("Byte data must be exactly 2 bytes long.")
-        return cls(int.from_bytes(byte_data, byteorder='big'))
-
-    def __repr__(self):
-        """
-        Return a string representation of the instance.
-        """
-        return f"UInt16({self.value})"
-
-    def __hash__(self):
-        """
-        Return the hash of the value.
-        """
-        return hash(self.value)
-
-class UInt32(BaseUInt):
-    """
-    A class that represents a 32-bit unsigned integer.
-    """
-
-    def __init__(self, value=0):
-        super().__init__(value, bit_size=32)
-        
-    def to_bytes(self):
-        """
-        Return the value as bytes.
-        """
-        return self.value.to_bytes(4, byteorder='big')
-
-    @classmethod
-    def from_bytes(cls, byte_data):
-        """
-        Create an instance from bytes.
-        """
-        if len(byte_data) != 4:
-            raise ValueError("Byte data must be exactly 4 bytes long.")
-        return cls(int.from_bytes(byte_data, byteorder='big'))
-
-    def __repr__(self):
-        """
-        Return a string representation of the instance.
-        """
-        return f"UInt32({self.value})"
-
-    def __hash__(self):
-        """
-        Return the hash of the value.
-        """
-        return hash(self.value)
-
-class UInt64(BaseUInt):
-    """
-    A class that represents a 64-bit unsigned integer.
-    """
-
-    def __init__(self, value=0):
-        super().__init__(value, bit_size=64)
-        
-    def to_bytes(self):
-        """
-        Return the value as bytes.
-        """
-        return self.value.to_bytes(8, byteorder='big')
-
-    @classmethod
-    def from_bytes(cls, byte_data):
-        """
-        Create an instance from bytes.
-        """
-        if len(byte_data) != 8:
-            raise ValueError("Byte data must be exactly 8 bytes long.")
-        return cls(int.from_bytes(byte_data, byteorder='big'))
-
-    def __repr__(self):
-        """
-        Return a string representation of the instance.
-        """
-        return f"UInt64({self.value})"
-
-    def __hash__(self):
-        """
-        Return the hash of the value.
-        """
-        return hash(self.value)
-
 class BaseInt(ABC):
     """
     An abstract base class that represents a signed integer.
     """
-
+    def __new__(cls, value=0, bit_size=8):
+        if isinstance(value, cls):
+            return value
+        instance = super(BaseInt, cls).__new__(cls)
+        instance._bit_size = bit_size
+        instance.value = value
+        return instance
     def __init__(self, value=0, bit_size=8):
         self._bit_size = bit_size
         self.value = value
@@ -910,7 +653,249 @@ class BaseInt(ABC):
     def __ge__(self, other):
         if isinstance(other, BaseInt):
             other = other.value
-        return self.value >= other
+        return self.value >= other        
+    def __int__(self):
+        return self.value
+    
+    @classmethod
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        original_new = cls.__new__
+
+        def new(cls, value=0, bit_size=8):
+            if isinstance(value, cls):
+                return value
+            return original_new(cls, value, bit_size)
+
+        cls.__new__ = new
+        
+class BaseUInt(BaseInt):
+    """
+    An abstract base class that represents an unsigned integer.
+    """
+
+    def __init__(self, value=0, bit_size=8):
+        super().__init__(value, bit_size)
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        min_value = 0
+        max_value = (1 << self._bit_size) - 1
+        if not (min_value <= new_value <= max_value):
+            raise ValueError(f"Value must be between {min_value} and {max_value} inclusive.")
+        self._value = new_value
+        
+class UInt8(BaseUInt):
+    """
+    A class that represents an 8-bit unsigned integer.
+    """
+    def __new__(cls, value=0, bit_size=8):
+        # Если значение - int, конвертируем его в UInt8, проверяя битность
+        if isinstance(value, int):
+            value = value & 0xFF  # Оставляем только 8 бит
+        return super().__new__(cls, value, bit_size)
+    
+    def __init__(self, value=0):
+        super().__init__(value, bit_size=8)
+        
+    def to_bytes(self):
+        """
+        Return the value as a byte.
+        """
+        return self.value.to_bytes(1, byteorder='big')
+
+    @classmethod
+    def from_bytes(cls, byte_data):
+        """
+        Create an instance from a byte.
+        """
+        if len(byte_data) != 1:
+            raise ValueError("Byte data must be exactly 1 byte long.")
+        return cls(int.from_bytes(byte_data, byteorder='big'))
+
+    def __repr__(self):
+        """
+        Return a string representation of the instance.
+        """
+        return f"UInt8({self.value})"
+
+    def __hash__(self):
+        """
+        Return the hash of the value.
+        """
+        return hash(self.value)
+    
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
+class UInt16(BaseUInt):
+    """
+    A class that represents a 16-bit unsigned integer.
+    """
+    def __new__(cls, value=0, bit_size=16):
+        # Если значение - int, конвертируем его в UInt8, проверяя битность
+        if isinstance(value, int):
+            value = value & 0xFFFF  # Оставляем только 8 бит
+        return super().__new__(cls, value, bit_size)
+    
+    def __init__(self, value=0):
+        super().__init__(value, bit_size=16)
+        
+    def to_bytes(self):
+        """
+        Return the value as bytes.
+        """
+        return self.value.to_bytes(2, byteorder='big')
+
+    @classmethod
+    def from_bytes(cls, byte_data):
+        """
+        Create an instance from bytes.
+        """
+        if len(byte_data) != 2:
+            raise ValueError("Byte data must be exactly 2 bytes long.")
+        return cls(int.from_bytes(byte_data, byteorder='big'))
+
+    def __repr__(self):
+        """
+        Return a string representation of the instance.
+        """
+        return f"UInt16({self.value})"
+
+    def __hash__(self):
+        """
+        Return the hash of the value.
+        """
+        return hash(self.value)
+    
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
+class UInt32(BaseUInt):
+    """
+    A class that represents a 32-bit unsigned integer.
+    """
+    def __new__(cls, value=0, bit_size=16):
+        # Если значение - int, конвертируем его в UInt8, проверяя битность
+        if isinstance(value, int):
+            value = value & 0xFFFFFFFF  # Оставляем только 8 бит
+        return super().__new__(cls, value, bit_size)
+    
+    def __init__(self, value=0):
+        super().__init__(value, bit_size=32)
+        
+    def to_bytes(self):
+        """
+        Return the value as bytes.
+        """
+        return self.value.to_bytes(4, byteorder='big')
+
+    @classmethod
+    def from_bytes(cls, byte_data):
+        """
+        Create an instance from bytes.
+        """
+        if len(byte_data) != 4:
+            raise ValueError("Byte data must be exactly 4 bytes long.")
+        return cls(int.from_bytes(byte_data, byteorder='big'))
+
+    def __repr__(self):
+        """
+        Return a string representation of the instance.
+        """
+        return f"UInt32({self.value})"
+
+    def __hash__(self):
+        """
+        Return the hash of the value.
+        """
+        return hash(self.value)
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
+class UInt64(BaseUInt):
+    """
+    A class that represents a 64-bit unsigned integer.
+    """
+    def __new__(cls, value=0, bit_size=16):
+        # Если значение - int, конвертируем его в UInt8, проверяя битность
+        if isinstance(value, int):
+            value = value & 0xFFFFFFFFFFFFFFFF  # Оставляем только 8 бит
+        return super().__new__(cls, value, bit_size)
+    
+    def __init__(self, value=0):
+        super().__init__(value, bit_size=64)
+        
+    def to_bytes(self):
+        """
+        Return the value as bytes.
+        """
+        return self.value.to_bytes(8, byteorder='big')
+
+    @classmethod
+    def from_bytes(cls, byte_data):
+        """
+        Create an instance from bytes.
+        """
+        if len(byte_data) != 8:
+            raise ValueError("Byte data must be exactly 8 bytes long.")
+        return cls(int.from_bytes(byte_data, byteorder='big'))
+
+    def __repr__(self):
+        """
+        Return a string representation of the instance.
+        """
+        return f"UInt64({self.value})"
+
+    def __hash__(self):
+        """
+        Return the hash of the value.
+        """
+        return hash(self.value)
+    
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
 
 class Int8(BaseInt):
     """
@@ -947,6 +932,17 @@ class Int8(BaseInt):
         """
         return hash(self.value)
     
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
 class Int16(BaseInt):
     """
     A class that represents a 16-bit signed integer.
@@ -981,7 +977,19 @@ class Int16(BaseInt):
         Return the hash of the value.
         """
         return hash(self.value)
+    
+    def __get__(self, instance, owner):
+        return self.value
 
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
 class Int32(BaseInt):
     """
     A class that represents a 32-bit signed integer.
@@ -1016,7 +1024,19 @@ class Int32(BaseInt):
         Return the hash of the value.
         """
         return hash(self.value)
+    
+    def __get__(self, instance, owner):
+        return self.value
 
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value
+        
 class Int64(BaseInt):
     """
     A class that represents a 64-bit signed integer.
@@ -1052,6 +1072,18 @@ class Int64(BaseInt):
         """
         return hash(self.value)
     
+    def __get__(self, instance, owner):
+        return self.value
+
+    def __set__(self, instance, value):
+        if isinstance(value, int):
+            # Преобразуем целое число в объект UInt8
+            value = UInt8(value)
+        elif not isinstance(value, UInt8):
+            raise ValueError("Assigned value must be an instance of int or UInt8.")
+        # Устанавливаем значение в атрибуте `_value`
+        instance.__dict__['_value'] = value   
+        
 class BaseChar(ABC):
     """
     An abstract base class that represents a character.
@@ -1289,7 +1321,7 @@ class NULL:
         return False
 
     def __eq__(self, other):
-        return isinstance(other, NULL)
+        return isinstance(other, NULL) or isinstance(other, Void) or isinstance(other, nullptr)
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -1329,7 +1361,7 @@ class nullptr:
         return False
 
     def __eq__(self, other):
-        return isinstance(other, nullptr)
+        return isinstance(other, nullptr) or isinstance(other, Void) or isinstance(other, NULL)
 
     def __ne__(self, other):
         return not self.__eq__(other)

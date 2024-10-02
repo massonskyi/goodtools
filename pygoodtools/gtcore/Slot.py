@@ -1,4 +1,5 @@
 # COPYRIGHT (c) 2024 Massonskyi
+
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,6 +22,22 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+Attributes:
+    func (callable): The function to be called when the slot is triggered.
+Methods:
+    __init__(func):
+        Initialize the Slot class with the given function.
+            func (callable): The function to be called.
+        Raises:
+            ValueError: If func is None.
+    __call__(*args, **kwargs):
+        Call the slot function with the provided arguments.
+            *args: Positional arguments to pass to the function.
+            **kwargs: Keyword arguments to pass to the function.
+            The result of the function call.
+"""
+
 class Slot:
     """
     Slot class to be called when an event occurs.

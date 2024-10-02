@@ -33,24 +33,27 @@ Classes:
 ConstMeta:
     Methods:
         __setattr__(cls, name, value):
-            Prevents rebinding of class attributes. Raises a TypeError if an attempt is made to rebind an existing attribute.
+            Prevents rebinding of class attributes. 
+            Raises a TypeError if an attempt is made to rebind an existing attribute.
         
         __delattr__(cls, name):
-            Prevents unbinding of class attributes. Raises a TypeError if an attempt is made to delete an existing attribute.
+            Prevents unbinding of class attributes. 
+            Raises a TypeError if an attempt is made to delete an existing attribute.
             
 MapMeta:
     Methods:
-        __new__(cls, name, bases, dct):
-            Allows custom logic to be applied when creating a class. Prints a message indicating the creation of a class with the metaclass.
+        __new__(mcs, name, bases, dct):
+            Allows custom logic to be applied when creating a class. 
+            Prints a message indicating the creation of a class with the metaclass.
 
 HashMapMeta:
     Methods: 
-        __new__(cls, name, bases, dct):
-            Allows custom logic to be applied when creating a class. Prints a message indicating the creation of a class with the metaclass.
+        __new__(mcs, name, bases, dct):
+            Allows custom logic to be applied when creating a class. 
+            Prints a message indicating the creation of a class with the metaclass.
 """
 
 class ConstMeta(type):
-
     def __setattr__(cls, name, value):
         if name in cls.__dict__:
             raise TypeError(f"Can't rebind const({name})")
@@ -60,13 +63,14 @@ class ConstMeta(type):
         if name in cls.__dict__:
             raise TypeError(f"Can't unbind const({name})")
         raise NameError(name)
-    
-class MapMeta(type):
-    def __new__(cls, name, bases, dct):
-        return super().__new__(cls, name, bases, dct)
 
+class MapMeta(type):
+    """A metaclass that allows custom logic to be applied when creating a class."""
+    def __new__(mcs, name, bases, dct):
+        return super().__new__(mcs, name, bases, dct)
 
 class HashMapMeta(type):
-    def __new__(cls, name, bases, dct):
+    """A metaclass that allows custom logic to be applied when creating a class."""
+    def __new__(mcs, name, bases, dct):
         dct['is_empty'] = lambda self: self.size == 0
-        return super().__new__(cls, name, bases, dct)
+        return super().__new__(mcs, name, bases, dct)

@@ -29,6 +29,20 @@ __description__ = 'Обеспечивает, что класс имеет тол
 
 
 def singleton(cls):
+    """
+    Decorator to ensure a class follows the singleton pattern.
+
+    This decorator wraps a class and ensures that only one instance of the class
+    is created. If an instance of the class already exists, it returns the existing
+    instance instead of creating a new one.
+
+    Args:
+        *args: Variable length argument list passed to the class constructor.
+        **kwargs: Arbitrary keyword arguments passed to the class constructor.
+
+    Returns:
+        The single instance of the class.
+    """
     instances = {}
 
     @functools.wraps(cls)

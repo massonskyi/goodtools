@@ -22,6 +22,24 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+"""
+This module provides various map implementations including HashMap, Map, TreeMap, UniqueMap, and UnorderedMap.
+
+Classes:
+    HashMap: A hash map implementation.
+    Map: A basic map implementation.
+    TreeMap: A tree map implementation.
+    UniqueMap: A map that ensures unique keys.
+    UnorderedMap: An unordered map implementation.
+
+Attributes:
+    hash_map (HashMap): Alias for the HashMap class.
+    map (Map): Alias for the Map class.
+    tree_map (TreeMap): Alias for the TreeMap class.
+    unique_map (UniqueMap): Alias for the UniqueMap class.
+    unordered_map (UnorderedMap): Alias for the UnorderedMap class.
+"""
+
 from .HashMap import HashMap
 from .Map import Map
 from .TreeMap import TreeMap

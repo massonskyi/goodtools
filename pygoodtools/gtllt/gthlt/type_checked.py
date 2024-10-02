@@ -29,6 +29,23 @@ import functools
 
 
 def is_type(*types):
+    """
+    A decorator to enforce type checking on function arguments.
+    Parameters:
+        *types: Variable length argument list of types to check against the function arguments.
+    Returns:
+        decorator_type_check (function): A decorator function that wraps the original function with type checking.
+    Raises:
+        ValueError: If the number of arguments passed to the function does not match the number of types specified.
+        TypeError: If any argument does not match the expected type.
+    Example:
+        @is_type(int, str)
+        def example_function(a, b):
+            return f"{a} is an integer and {b} is a string"
+        example_function(1, "hello")  # This will work
+        example_function(1, 2)        # This will raise TypeError
+    """
+    
     def decorator_type_check(func):
         @functools.wraps(func)
         def wrapper_type_check(*args, **kwargs):

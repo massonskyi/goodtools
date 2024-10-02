@@ -21,6 +21,26 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module implements the Observer design pattern, which allows objects to be notified of changes in other objects.
+
+Classes:
+    Observer: Defines an interface for objects that should be notified of changes in a subject.
+    Subject: Maintains a list of observers and notifies them of any changes.
+
+Classes:
+    Observer:
+        Methods:
+            update(subject: object): Updates the observer object when the subject object is updated.
+
+    Subject:
+        Methods:
+            __init__(): Initializes the subject object.
+            attach(observer: Observer): Attaches the observer object to the subject object.
+            detach(observer: Observer): Detaches the observer object from the subject object.
+            notify(): Notifies all the attached observer objects.
+"""
+
 __all__ = ['Observer', 'Subject']
 
 

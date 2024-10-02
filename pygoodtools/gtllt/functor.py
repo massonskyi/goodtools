@@ -21,6 +21,31 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+A module that provides a functor class `F` for functional programming.
+
+Classes:
+    F: A class that represents a functor, allowing function chaining, mapping, filtering, currying, argument transformation, and reduction.
+
+Example usage:
+
+
+
+    >>> f.map(lambda x: x * 2)(2)
+
+    >>> f.filter(lambda x: x > 2)(3)
+    4
+
+    >>> f.curry(2)(3)
+
+    >>> f.transform_args(lambda x: (x + 1,))(2)
+    4
+
+    >>> f.reduce(lambda x, y: x + y, 0)([1, 2, 3])
+    9
+"""
+
+
 import functools
 from typing import Callable, Any, Optional
 

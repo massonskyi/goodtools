@@ -30,6 +30,25 @@ __description__ = 'Повторяет вызов функции определе
 
 
 def retry(retries=3, delay=1):
+    """
+    A decorator that retries a function execution a specified number of times with a delay between attempts.
+
+    Args:
+        retries (int): The number of times to retry the function. Default is 3.
+        delay (int): The delay in seconds between each retry attempt. Default is 1.
+
+    Returns:
+        function: A wrapped function that will be retried upon failure.
+
+    Raises:
+        Exception: The last exception encountered after all retry attempts have been exhausted.
+
+    Example:
+        @retry(retries=5, delay=2)
+        def unstable_function():
+            # Function implementation that might fail
+            pass
+    """
     def decorator_retry(func):
         @functools.wraps(func)
         def wrapper_retry(*args, **kwargs):

@@ -21,6 +21,25 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+"""
+This module defines a metaclass `Meta` and a base class `Base` that utilizes the metaclass.
+
+Classes:
+    Meta: A metaclass that adds a `registry` attribute to the class.
+    Base: A base class that registers its subclasses in the `registry` attribute.
+
+Metaclass `Meta`:
+    Methods:
+        __new__(cls, name, bases, attrs):
+            Creates a new class and adds a `registry` attribute to it.
+
+Base class `Base`:
+    Methods:
+        __init_subclass__(cls, **kwargs):
+            Initializes the subclass and registers it in the `registry` attribute.
+"""
+
+
 class Meta(type):
     """
     Metaclass for the class.

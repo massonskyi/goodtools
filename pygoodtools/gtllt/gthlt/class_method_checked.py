@@ -27,6 +27,23 @@ __description__ = 'Декоратор для методов класса, поз
 
 
 def ensure_method_exists(method_name):
+    """
+    A decorator to ensure that a class implements a specific method.
+    This decorator checks if the given method name exists in the class. If the method
+    does not exist, it raises a TypeError.
+    Args:
+        method_name (str): The name of the method that must be implemented by the class.
+    Returns:
+        function: A decorator function that checks for the existence of the specified method.
+    Raises:
+        TypeError: If the class does not implement the specified method.
+    Example:
+        @ensure_method_exists('my_method')
+        class MyClass:
+            def my_method(self):
+                pass
+    """
+    
     def decorator_ensure_method_exists(cls):
         if not hasattr(cls, method_name):
             raise TypeError(f"Class {cls.__name__} must implement method {method_name}")

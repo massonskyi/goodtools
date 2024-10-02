@@ -1,4 +1,9 @@
 import pygoodtools
 
 
-print(pygoodtools.boolean)
+print(pygoodtools.NULL)
+print(pygoodtools.nullptr)
+print(pygoodtools.void)
+
+
+x: pygoodtools.char = pygoodtools.char('a')

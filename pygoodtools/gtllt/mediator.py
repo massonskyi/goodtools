@@ -21,6 +21,23 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+"""
+This module defines the Mediator and BaseComponent classes.
+
+Classes:
+    Mediator: Acts as the mediator between clients and the server.
+    BaseComponent: Serves as the base class for all components, utilizing a mediator for event notifications.
+
+Mediator:
+    Methods:
+        notify(sender, event): Notifies the clients about the event.
+
+BaseComponent:
+    Methods:
+        __init__(__mediator=None): Initializes the component with an optional mediator.
+        mediator: Property to get or set the mediator.
+"""
 __all__ = ['Mediator']
 
 
