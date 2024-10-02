@@ -47,7 +47,7 @@ __all__ = [
     
 ]
 
-void = Void()
+void = Void
 ptr = Pointer
 const = Const
 u8 = UInt8

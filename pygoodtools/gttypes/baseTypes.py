@@ -131,7 +131,13 @@ class Void:
     A class that represents a 'void' type, which essentially does nothing.
     It can be used as a placeholder or a default value where no action is required.
     """
-
+    _instance = None
+   
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Void, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self, *args, **kwargs):
         pass
 
