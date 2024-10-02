@@ -63,7 +63,6 @@ class ConstMeta(type):
     
 class MapMeta(type):
     def __new__(cls, name, bases, dct):
-        print(f"Creating class {name} with metaclass {cls.__name__}")
         return super().__new__(cls, name, bases, dct)
 
 
