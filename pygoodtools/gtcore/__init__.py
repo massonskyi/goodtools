@@ -21,24 +21,13 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-
-from HashMap import HashMap
-from Map import Map
-from TreeMap import TreeMap
-from UniqueMap import UniqueMap
-from UnorderedMap import UnorderedMap
-
-__all__ = [
-    'hash_map',
-    'map',
-    'tree_map',
-    'unique_map',
-    'unordered_map'
-]
+from .object import GTObject
+from .Signal import Signal
+from .Slot import Slot
 
 
-map = Map
-hash_map = HashMap
-tree_map = TreeMap
-unique_map = UniqueMap
-unordered_map = UnorderedMap
+__all__ = ['pyGTSignal','pyGTSlot','GTObject']
+
+
+pyGTSignal  = Signal
+pyGTSlot    =   Slot

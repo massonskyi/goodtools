@@ -78,8 +78,8 @@ from typing import (
     Union,
     List
 )
-from goodtools.gttypes import void
-from goodtools.metaclasses import HashMapMeta
+from gttypes import void
+from metaclasses import HashMapMeta
 
 
 __all__=[

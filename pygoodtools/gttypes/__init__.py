@@ -21,41 +21,51 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-from command import Command
-from factory import CallbackFactory
-from functor import F
-from mediator import Mediator
-from meta import Meta
-from observer import Observer, Subject
-from singleton import Singleton
-from smart_ptr import SmartPointer
-from time_ptr import TimeitPtr
-from visitor import Visitor
 
-
+from .baseTypes import *
+from .Const import Const
 __all__ = [
-    'pyGTCommand',
-    'pyGTCallback',
-    'pyGTFunctor',
-    'pyGTSingleton',
-    'pyGTSmartPointer',
-    'pyGTTimeitPtr',
-    'pyGTVisitor',
-    'pyGTMediator',
-    'pyGTMeta',
-    'pyGTSubject',
-    'pyGTObserver',
+    'void',
+    'ptr',
+    'const'
+    'u8',
+    'u16',
+    'u32',
+    'i8',
+    'i16',
+    'i32',
+    'i64',
+    'char',
+    'string',
+    'boolean',
+    'f2', 
+    'f4', 
+    'f8', 
+    'f16', 
+    'f32', 
+    'f64',
+    
 ]
 
-
-pyGTCommand = Command
-pyGTCallback = CallbackFactory
-pyGTFunctor = F
-pyGTSingleton = Singleton
-pyGTSmartPointer = SmartPointer
-pyGTTimeitPtr = TimeitPtr
-pyGTVisitor = Visitor
-pyGTMediator = Mediator
-pyGTMeta = Meta
-pyGTSubject = Subject
-pyGTObserver = Observer
+void = Void
+ptr = Pointer
+const = Const
+u8 = UInt8
+u16 = UInt16
+u32 = UInt32
+u64 = UInt64
+i8 = Int8
+i16 = Int16
+i32 = Int32
+i64 = Int64
+char = Char
+string = String
+NULL = NULL
+nullptr = nullptr
+boolean = Bool
+f2 = Float2
+f4 = Float4
+f8 = Float8
+f16 = Float16
+f32 = Float32
+f64 = Float64

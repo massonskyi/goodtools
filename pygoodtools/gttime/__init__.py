@@ -13,7 +13,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTOR
 # LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
 # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
@@ -21,34 +21,12 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-from cache import lru_cache
-from class_method_checked import ensure_method_exists
-from context_manager import contextmanager
-from log_calls import log_calls
-from memoization import memoize
-from timeit import timeit
-from singleton import singleton
-from type_checked import is_type
-from .retry import retry
+# COPYRIGHT (c) 2024 Massonskyi
+from .Timer import Timer
 
-__all__= [
-    'pyGTCache',
-    'pyGTEnsureMethodExists',
-    'pyGTContextManager',
-    'pyGTLogCalls',
-    'pyGTMemoize',
-    'pyGTTimeit',
-    'pyGTSingleton',
-    'pyGTIsType',
-    'pyGTRetry'
-]
 
-pyGTCache = lru_cache
-pyGTEnsureMethodExists = ensure_method_exists
-pyGTContextManager = contextmanager
-pyGTLogCalls = log_calls
-pyGTMemoize = memoize
-pyGTTimeit = timeit
-pyGTSingleton = singleton
-pyGTIsType = is_type
-pyGTRetry = retry
+
+__all__ = ['GTTimer']
+
+
+GTTimer = Timer

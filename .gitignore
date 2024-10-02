@@ -58,7 +58,7 @@ dmypy.json
 
 # Ignore Pyre type checker files
 .pyre/
-
+.pypirc
 # Ignore coverage files
 .coverage
 .coverage.*

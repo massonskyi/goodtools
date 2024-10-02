@@ -21,40 +21,32 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+from abc import ABC, abstractmethod
+from typing import Any
 
-"""
-This module defines a `Const` class that enforces constant attributes.
+from . import Signal
 
-Classes:
-    Const: A class that prevents rebinding and unbinding of its attributes.
-        ConstError: Custom exception raised when attempting to rebind or unbind constants.
+class GTObject(ABC):
+    def __init__(self, name):
+        self.name = name
+        self.signals = {}
 
-Usage:
-    class MyConstants(Const):
-        PI = 3.14159
-        E = 2.71828
+    @abstractmethod
+    def display_info(self):
+        pass
 
-    my_constants = MyConstants()
-    print(my_constants.PI)  # 3.14159
+    def __str__(self):
+        return f"GTObject: {self.name}"
 
-    # The following will raise a ConstError:
-    # my_constants.PI = 3.14
-    # del my_constants.PI
-"""
+    def connect(self, signal_name, callback):
+        if signal_name not in self.signals:
+            self.signals[signal_name] = Signal()
+        self.signals[signal_name].connect(callback)
 
-from typing import final
-from goodtools.metaclasses import ConstMeta
+    def disconnect(self, signal_name, callback):
+        if signal_name in self.signals:
+            self.signals[signal_name].disconnect(callback)
 
-@final
-class Const(metaclass=ConstMeta):
-    class ConstError(TypeError): pass
-
-    def __setattr__(self, name, value):
-        if name in self.__dict__:
-            raise self.ConstError(f"Can't rebind const({name})")
-        self.__dict__[name] = value
-
-    def __delattr__(self, name):
-        if name in self.__dict__:
-            raise self.ConstError(f"Can't unbind const({name})")
-        raise NameError(name)
+    def emit(self, signal_name, *args, **kwargs):
+        if signal_name in self.signals:
+            self.signals[signal_name].emit(*args, **kwargs)

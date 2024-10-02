@@ -79,7 +79,7 @@ TreeMap:
             Returns a list of all key-value pairs in the tree in in-order.
 """
 from typing import List, Optional, Any, Union, final
-from goodtools.gttypes import void
+from pygoodtools.gttypes import void
 from dataclasses import dataclass
 
 __all__=[

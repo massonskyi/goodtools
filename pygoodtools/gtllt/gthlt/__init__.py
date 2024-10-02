@@ -21,51 +21,34 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+from .cache import lru_cache
+from .class_method_checked import ensure_method_exists
+from .context_manager import contextmanager
+from .log_calls import log_calls
+from .memoization import memoize
+from .timeit import timeit
+from .singleton import singleton
+from .type_checked import is_type
+from .retry import retry
 
-from baseTypes import *
-from Const import Const
-__all__ = [
-    'void',
-    'ptr',
-    'const'
-    'u8',
-    'u16',
-    'u32',
-    'i8',
-    'i16',
-    'i32',
-    'i64',
-    'char',
-    'string',
-    'boolean',
-    'f2', 
-    'f4', 
-    'f8', 
-    'f16', 
-    'f32', 
-    'f64',
-    
+__all__= [
+    'pyGTCache',
+    'pyGTEnsureMethodExists',
+    'pyGTContextManager',
+    'pyGTLogCalls',
+    'pyGTMemoize',
+    'pyGTTimeit',
+    'pyGTSingleton',
+    'pyGTIsType',
+    'pyGTRetry'
 ]
 
-void = Void
-ptr = Pointer
-const = Const
-u8 = UInt8
-u16 = UInt16
-u32 = UInt32
-u64 = UInt64
-i8 = Int8
-i16 = Int16
-i32 = Int32
-i64 = Int64
-char = Char
-string = String
-NULL = NULL
-nullptr = nullptr
-boolean = Bool
-f2 = Float2
-f4 = Float4
-f8 = Float8
-f16 = Float16
-f32 = Float32
-f64 = Float64
+pyGTCache = lru_cache
+pyGTEnsureMethodExists = ensure_method_exists
+pyGTContextManager = contextmanager
+pyGTLogCalls = log_calls
+pyGTMemoize = memoize
+pyGTTimeit = timeit
+pyGTSingleton = singleton
+pyGTIsType = is_type
+pyGTRetry = retry

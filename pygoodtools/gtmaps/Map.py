@@ -68,8 +68,8 @@ from typing import (
     Optional
 )
 
-from goodtools.metaclasses import MapMeta
-from goodtools.gttypes import void, ptr
+from pygoodtools.metaclasses import MapMeta
+from pygoodtools.gttypes import void, ptr
 
 __all__ = ["Map"]
 
