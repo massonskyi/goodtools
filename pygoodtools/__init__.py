@@ -52,7 +52,7 @@ __Modules:__
     - __void__: Void type.
 """
 
-from .gtcore import pyGTSignal, pyGTSlot, GTObject
+from .gtsignals import pyGTSignal
 from .gtmaps import unique_map, map, hash_map, unordered_map, tree_map
 from .gttypes import u8, u16, u32, u64, i8, i16, i32, i64, f8, f16, f32, f64,boolean, char, string, nullptr, NULL, void, ptr, const
 from .gttime import GTTimer
@@ -60,7 +60,7 @@ from .gtllt import  pyGTCommand,pyGTCallback,pyGTFunctor,pyGTMediator,pyGTMeta,p
 from .gtllt.gthlt import pyGTCache, pyGTTimeit, pyGTContextManager, pyGTEnsureMethodExists, pyGTIsType, pyGTLogCalls, pyGTMemoize, pyGTRetry, pyGTSingleton as GHTSingleton
 
 __all__ = [
-    'pyGTSignal', 'pyGTSlot', 'GTObject','GTTimer',
+    'pyGTSignal','GTTimer',
     'unique_map', 'map', 'hash_map', 'unordered_map', 'tree_map',
     'u8', 'u16', 'u32', 'u64', 'i8', 'i16', 'i32', 'i64',
     'f8', 'f16', 'f32', 'f64', 'boolean', 'char', 'string',

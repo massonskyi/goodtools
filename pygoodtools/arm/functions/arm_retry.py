@@ -1,5 +1,4 @@
 # COPYRIGHT (c) 2024 Massonskyi
-
 # All rights reserved.
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,48 +21,52 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-"""
-Attributes:
-    func (callable): The function to be called when the slot is triggered.
-Methods:
-    __init__(func):
-        Initialize the Slot class with the given function.
-            func (callable): The function to be called.
-        Raises:
-            ValueError: If func is None.
-    __call__(*args, **kwargs):
-        Call the slot function with the provided arguments.
-            *args: Positional arguments to pass to the function.
-            **kwargs: Keyword arguments to pass to the function.
-            The result of the function call.
-"""
 
-class Slot:
+import ctypes
+import functools
+import time
+
+__all__ = ['arm_retry', 'ArmRetryParams']
+__version__ = '0.1.0'
+__description__ = 'Повторяет вызов функции определенное количество раз в случае ошибки.'
+
+class ArmRetryParams(ctypes.Structure):
+    _fields_ = [("retries", ctypes.c_int), ("delay", ctypes.c_int)]
+
+def arm_retry(retries=3, delay=1):
     """
-    Slot class to be called when an event occurs.
+    A decorator that retries a function execution a specified number of times with a delay between attempts.
+
+    Args:
+        retries (int): The number of times to retry the function. Default is 3.
+        delay (int): The delay in seconds between each retry attempt. Default is 1.
+
+    Returns:
+        function: A wrapped function that will be retried upon failure.
+
+    Raises:
+        Exception: The last exception encountered after all retry attempts have been exhausted.
+
+    Example:
+        @retry(retries=5, delay=2)
+        def unstable_function():
+            # Function implementation that might fail
+            pass
     """
-    def __init__(self, func):
-        """
-        Initialize the slot class.
-        Args:
-            func: the function to be called
-        Return: 
-            None
-        """
-        if not func:
-            raise ValueError('func must not be None')
-        
-        self.func = func
+    params = ArmRetryParams(retries, delay)
 
-    def __call__(self, *args, **kwargs):
-        """
-        Call the slot function when called
-        Args:
-            *args: positional arguments
-            **kwargs: keyword arguments
-        Returns:
-            None
-        """
-        return self.func(*args, **kwargs)
+    def decorator_retry(func):
+        @functools.wraps(func)
+        def wrapper_retry(*args, **kwargs):
+            last_exception = None
+            for _ in range(params.retries):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    time.sleep(params.delay)
+            raise last_exception
 
+        return wrapper_retry
 
+    return decorator_retry
