@@ -25,7 +25,7 @@ import ctypes
 from typing import Any, final
 
 
-class Pointer(ctypes.Structure):
+class ArmPointer(ctypes.Structure):
     """
     A class that represents a pointer to an object using ctypes.
     It can be used to reference and manipulate the object it points to.
@@ -95,7 +95,7 @@ class Pointer(ctypes.Structure):
         """
         Check equality with another pointer or object.
         """
-        if isinstance(other, Pointer):
+        if isinstance(other, ArmPointer):
             return self.ptr == other.ptr
         return self.ptr == other
 

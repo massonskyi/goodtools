@@ -58,7 +58,7 @@ from .gttypes import u8, u16, u32, u64, i8, i16, i32, i64, f8, f16, f32, f64,boo
 from .gttime import GTTimer
 from .gtllt import  pyGTCommand,pyGTCallback,pyGTFunctor,pyGTMediator,pyGTMeta,pyGTObserver,pyGTSingleton,pyGTSmartPointer,pyGTSubject,pyGTTimeitPtr,pyGTVisitor
 from .gtllt.gthlt import pyGTCache, pyGTTimeit, pyGTContextManager, pyGTEnsureMethodExists, pyGTIsType, pyGTLogCalls, pyGTMemoize, pyGTRetry, pyGTSingleton as GHTSingleton
-
+from .arm import *
 __all__ = [
     'pyGTSignal','GTTimer',
     'unique_map', 'map', 'hash_map', 'unordered_map', 'tree_map',
@@ -66,7 +66,8 @@ __all__ = [
     'f8', 'f16', 'f32', 'f64', 'boolean', 'char', 'string',
     'nullptr', 'NULL', 'void', 'ptr', 'const',
     'pyGTCommand', 'pyGTCallback', 'pyGTFunctor', 'pyGTMediator', 'pyGTMeta', 'pyGTObserver', 'pyGTSingleton', 'pyGTSmartPointer', 'pyGTSubject', 'pyGTTimeitPtr', 'pyGTVisitor',
-    'pyGTCache', 'pyGTTimeit', 'pyGTContextManager', 'pyGTEnsureMethodExists', 'pyGTIsType', 'pyGTLogCalls', 'pyGTMemoize', 'pyGTRetry', 'GHTSingleton'
+    'pyGTCache', 'pyGTTimeit', 'pyGTContextManager', 'pyGTEnsureMethodExists', 'pyGTIsType', 'pyGTLogCalls', 'pyGTMemoize', 'pyGTRetry', 'GHTSingleton',
+    'arm'
 ]
 
 __docs__ = """
