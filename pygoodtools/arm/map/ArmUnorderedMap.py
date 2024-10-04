@@ -25,7 +25,6 @@
 import ctypes
 from typing import Any, Dict, final
 
-
 class KeyValuePair(ctypes.Structure):
     _fields_ = [
         ("key", ctypes.py_object),

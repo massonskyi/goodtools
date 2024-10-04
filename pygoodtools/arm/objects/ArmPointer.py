@@ -24,7 +24,6 @@
 import ctypes
 from typing import Any, final
 
-
 class ArmPointer(ctypes.Structure):
     """
     A class that represents a pointer to an object using ctypes.

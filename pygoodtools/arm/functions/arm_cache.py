@@ -32,7 +32,6 @@ __description__ = 'Кэширует результаты функции с ог�
 
 from typing import Any
 
-
 class ArmLRUCache(ctypes.Structure):
     _fields_ = [("cache", ctypes.py_object), ("order", ctypes.py_object), ("maxsize", ctypes.c_int)]
 

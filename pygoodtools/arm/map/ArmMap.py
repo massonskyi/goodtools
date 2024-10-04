@@ -24,7 +24,6 @@
 
 import ctypes
 from typing import List, Optional, Any, final
-
 @final
 class ArmMap:
     """

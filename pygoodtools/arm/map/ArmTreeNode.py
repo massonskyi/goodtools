@@ -25,7 +25,6 @@
 import ctypes
 from typing import List, Optional, Any, Union
 
-
 class ArmTreeNode(ctypes.Structure):
     _fields_ = [
         ("key", ctypes.py_object),
@@ -42,7 +41,6 @@ class ArmTreeNode(ctypes.Structure):
         self.left = None
         self.right = None
         self.height = 1
-
 
 class ArmTreeMap:
     """

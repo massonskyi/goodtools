@@ -27,7 +27,6 @@ import ctypes
 import functools
 import time
 
-
 class ArmTimeitPtr(ctypes.Structure):
     """
     A context manager and decorator for measuring the execution time of code blocks and functions.

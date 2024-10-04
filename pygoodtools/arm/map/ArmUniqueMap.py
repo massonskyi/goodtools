@@ -24,14 +24,11 @@
 
 import ctypes
 from typing import Any, List, final
-
-
 class UniqueMapNode(ctypes.Structure):
     _fields_ = [
         ("key", ctypes.py_object),
         ("value", ctypes.py_object)
     ]
-
 
 @final
 class ArmUniqueMap:

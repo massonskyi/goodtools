@@ -29,10 +29,9 @@ import time
 __all__ = ['arm_retry', 'ArmRetryParams']
 __version__ = '0.1.0'
 __description__ = 'Повторяет вызов функции определенное количество раз в случае ошибки.'
-
 class ArmRetryParams(ctypes.Structure):
     _fields_ = [("retries", ctypes.c_int), ("delay", ctypes.c_int)]
-
+    
 def arm_retry(retries=3, delay=1):
     """
     A decorator that retries a function execution a specified number of times with a delay between attempts.
