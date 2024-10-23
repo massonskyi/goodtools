@@ -29,7 +29,7 @@ __goodtools__ package
 __This package provides a collection of tools and utilities for various purposes.__
 
 __Modules:__
-- __core__: Contains core functionalities such as signals, slots, and base objects.
+- __core__: Contains core functionalities such as signals, slots, and base core.
     - __pyGTSignal__: Signal class for event handling.
     - __pyGTSlot__: Slot class for event handling.
     - __GTObject__: Base object class.
@@ -52,23 +52,11 @@ __Modules:__
     - __void__: Void type.
 """
 
-from .gtsignals import pyGTSignal
-from .gtmaps import unique_map, map, hash_map, unordered_map, tree_map
-from .gttypes import u8, u16, u32, u64, i8, i16, i32, i64, f8, f16, f32, f64,boolean, char, string, nullptr, NULL, void, ptr, const
-from .gttime import GTTimer
-from .gtllt import  pyGTCommand,pyGTCallback,pyGTFunctor,pyGTMediator,pyGTMeta,pyGTObserver,pyGTSingleton,pyGTSmartPointer,pyGTSubject,pyGTTimeitPtr,pyGTVisitor
-from .gtllt.gthlt import pyGTCache, pyGTTimeit, pyGTContextManager, pyGTEnsureMethodExists, pyGTIsType, pyGTLogCalls, pyGTMemoize, pyGTRetry, pyGTSingleton as GHTSingleton
-from .arm import *
-__all__ = [
-    'pyGTSignal','GTTimer',
-    'unique_map', 'map', 'hash_map', 'unordered_map', 'tree_map',
-    'u8', 'u16', 'u32', 'u64', 'i8', 'i16', 'i32', 'i64',
-    'f8', 'f16', 'f32', 'f64', 'boolean', 'char', 'string',
-    'nullptr', 'NULL', 'void', 'ptr', 'const',
-    'pyGTCommand', 'pyGTCallback', 'pyGTFunctor', 'pyGTMediator', 'pyGTMeta', 'pyGTObserver', 'pyGTSingleton', 'pyGTSmartPointer', 'pyGTSubject', 'pyGTTimeitPtr', 'pyGTVisitor',
-    'pyGTCache', 'pyGTTimeit', 'pyGTContextManager', 'pyGTEnsureMethodExists', 'pyGTIsType', 'pyGTLogCalls', 'pyGTMemoize', 'pyGTRetry', 'GHTSingleton',
-    'arm'
-]
+from .basetools import *
+from .basetypes import *
+from .core import *
+from fasttools import *
+
 
 __docs__ = """
 __goodtools__ package
@@ -76,7 +64,7 @@ __goodtools__ package
 __This package provides a collection of tools and utilities for various purposes.__
 
 __Modules:__
-- __core__: Contains core functionalities such as signals, slots, and base objects.
+- __core__: Contains core functionalities such as signals, slots, and base core.
     - __pyGTSignal__: Signal class for event handling.
     - __pyGTSlot__: Slot class for event handling.
     - __GTObject__: Base object class.
