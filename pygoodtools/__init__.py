@@ -55,7 +55,7 @@ __Modules:__
 from .basetools import *
 from .basetypes import *
 from .core import *
-from goodtools.pygoodtools.fasttools import *
+from lib.goodtools.pygoodtools.fasttools import *
 
 
 __docs__ = """

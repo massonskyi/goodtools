@@ -109,7 +109,7 @@ __all__ = [
     'Nullptr',
 ]
 
-from goodtools.pygoodtools.core import Base
+from lib.goodtools.pygoodtools.core import Base
 
 @final
 class Void(Base):

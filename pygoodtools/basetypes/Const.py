@@ -43,7 +43,7 @@ Usage:
 """
 
 from typing import final
-from goodtools.pygoodtools.metaclasses import ConstMeta
+from lib.goodtools.pygoodtools.metaclasses import ConstMeta
 
 @final
 class Const(metaclass=ConstMeta):
