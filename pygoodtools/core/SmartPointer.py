@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import ctypes
-
+from typing import Any
 class SmartPointer(ctypes.Structure):
     """
     A smart pointer class.

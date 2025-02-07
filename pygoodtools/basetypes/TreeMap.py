@@ -51,21 +51,21 @@ class TreeMap:
         """Initializes an empty TreeMap."""
         self.root = None
 
-    def _height(self, node: Optional[ArmTreeNode]) -> int:
+    def _height(self, node: Optional[TreeNode]) -> int:
         """Returns the height of the given node."""
         if node is None:
             return 0
         return node.height
 
-    def _update_height(self, node: ArmTreeNode) -> None:
+    def _update_height(self, node: TreeNode) -> None:
         """Updates the height of the node based on its children."""
         node.height = 1 + max(self._height(node.left), self._height(node.right))
 
-    def _balance_factor(self, node: ArmTreeNode) -> int:
+    def _balance_factor(self, node: TreeNode) -> int:
         """Calculates and returns the balance factor of the node."""
         return self._height(node.left) - self._height(node.right)
 
-    def _rotate_left(self, node: ArmTreeNode) -> ArmTreeNode:
+    def _rotate_left(self, node: TreeNode) -> TreeNode:
         """Performs a left rotation and returns the new root."""
         right_node = node.right
         node.right = right_node.left
@@ -74,7 +74,7 @@ class TreeMap:
         self._update_height(right_node)
         return right_node
 
-    def _rotate_right(self, node: ArmTreeNode) -> ArmTreeNode:
+    def _rotate_right(self, node: TreeNode) -> TreeNode:
         """Performs a right rotation and returns the new root."""
         left_node = node.left
         node.left = left_node.right
@@ -83,7 +83,7 @@ class TreeMap:
         self._update_height(left_node)
         return left_node
 
-    def _balance(self, node: ArmTreeNode) -> ArmTreeNode:
+    def _balance(self, node: TreeNode) -> TreeNode:
         """Balances the subtree and returns the new root."""
         self._update_height(node)
         balance_factor = self._balance_factor(node)
@@ -100,10 +100,10 @@ class TreeMap:
 
         return node
 
-    def _put(self, node: Optional[ArmTreeNode], key: Any, value: Any) -> ArmTreeNode:
+    def _put(self, node: Optional[TreeNode], key: Any, value: Any) -> TreeNode:
         """Recursively inserts the key-value pair into the tree."""
         if node is None:
-            return ArmTreeNode(key, value)
+            return TreeNode(key, value)
 
         if key < node.key:
             node.left = self._put(node.left, key, value)
@@ -118,7 +118,7 @@ class TreeMap:
         """Inserts a key-value pair into the tree."""
         self.root = self._put(self.root, key, value)
 
-    def _get(self, node: Optional[ArmTreeNode], key: Any) -> Union[None, Any]:
+    def _get(self, node: Optional[TreeNode], key: Any) -> Union[None, Any]:
         """Recursively retrieves the value associated with the key."""
         if node is None:
             return None
@@ -132,7 +132,7 @@ class TreeMap:
         """Retrieves the value associated with the given key."""
         return self._get(self.root, key)
 
-    def _inorder(self, node: Optional[ArmTreeNode], result: List) -> None:
+    def _inorder(self, node: Optional[TreeNode], result: List) -> None:
         """Performs an in-order traversal of the tree."""
         if node is not None:
             self._inorder(node.left, result)

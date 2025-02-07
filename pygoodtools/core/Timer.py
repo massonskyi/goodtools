@@ -74,7 +74,8 @@ class Timer:
         self.argv = argv if argv is not None else []
         self.args = args if args is not None else []
         self.kwargs = kwargs if kwargs is not None else {}
-        
+        self._lock = threading.Lock()  # Добавляем блокировку для потокобезопасности
+
         self._parse_kwargs(**kwargs)
         
     def setInterval(self, interval: float) -> None:
@@ -83,7 +84,8 @@ class Timer:
 
         :param interval: Time interval in seconds.
         """
-        self.interval = interval
+        with self._lock:  # Защищаем изменение интервала блокировкой
+            self.interval = interval
                 
     def _parse_kwargs(self, **kwargs):
         for key, value in kwargs.items():
@@ -96,9 +98,11 @@ class Timer:
         Run the timer and execute the callback function.
         """
         print('Timer is running...')
-        next_call = time.perf_counter()  # More precise timer
+        next_call = time.perf_counter()
         while not self._stop_event.is_set():
-            next_call += self.interval
+            with self._lock:  # Защищаем чтение интервала
+                current_interval = self.interval
+            next_call += current_interval
             time_to_sleep = next_call - time.perf_counter()
             if time_to_sleep > 0:
                 time.sleep(time_to_sleep)
@@ -123,15 +127,21 @@ class Timer:
         """
         Start the timer
         """
-        if self._timer_thread is None or not self._timer_thread.is_alive():
-            self._stop_event.clear()
-            self._timer_thread = threading.Thread(target=self._run)
-            self._timer_thread.start()
+        with self._lock:  # Защищаем запуск блокировкой
+            if self._timer_thread is None or not self._timer_thread.is_alive():
+                self._stop_event.clear()
+                self._timer_thread = threading.Thread(target=self._run, daemon=True)
+                self._timer_thread.start()
         
     def stop(self):
         """
         Stop the timer
         """
+        if not self._timer_thread:
+            return
         self._stop_event.set()
-        if self._timer_thread is not None:
-            self._timer_thread.join()
+        with self._lock:  # Защищаем остановку блокировкой
+            if self._timer_thread.is_alive():
+                self._timer_thread.join(timeout=1)
+                if self._timer_thread.is_alive():
+                    print("Warning: Thread did not terminate properly")
